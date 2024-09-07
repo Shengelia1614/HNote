@@ -12,6 +12,7 @@ using namespace sf;
 #define windowS_X 1900
 #define windowS_Y 1080
 #define ToolBoxWidth 150
+//Music Notes[88];
 
 struct note {
 	float playtime=0;
@@ -68,6 +69,7 @@ public:
                         tempNote.startPos=MouseViewPosition.y;
                         tempNote.visual.setPosition(i * (windowS_X / 51.99999), MouseViewPosition.y);
                         tempNote.visual.setFillColor(Color::Green);
+                        tempNote.keyNumber = i;
                         //cout << "created" << endl;
                     }
                     
@@ -93,8 +95,8 @@ public:
 
 
     void Draw(RenderWindow&);
-    void NoteMovement();
-    void Play();
+    
+    void Play(Music Notes[]);
 
 
 

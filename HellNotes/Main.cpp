@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
@@ -5,12 +6,19 @@
 #include <SFML/window.hpp>
 #include <SFML/audio.hpp>
 #include "music.h";
+#include "toolbox.h";
+
+#include <string>
+#include <iostream>
+#include <filesystem>
 
 using namespace std;
 using namespace sf;
+namespace fs = std::filesystem;
 #define windowS_X 1900
 #define windowS_Y 1080
 #define ToolBoxWidth 150
+Music Notes[88];
 
 void scroll(RenderWindow & window, View& view, Event event) {
     
@@ -24,6 +32,23 @@ void scroll(RenderWindow & window, View& view, Event event) {
         //so two if statements are neccessary here isntead of single if else
     }
 }
+
+void keyloader(string path) {
+    //string Notes[88];
+    
+    int i = 0;
+    for (const auto& entry : fs::directory_iterator(path)) {
+
+        
+        Notes[i].openFromFile(entry.path().string());
+        cout << entry.path().string() << endl;
+        //Notes[i].play();
+        i++;
+    }
+
+
+}
+
 
 int main()
 {
@@ -44,6 +69,9 @@ int main()
     RectangleShape BlackKeys[36];
     
     music Music;
+    toolbox ToolBox;
+
+    keyloader(filesystem::current_path().string()+"\\notes");
 
     for (size_t i = 0; i < 52; i++)
     {
@@ -91,6 +119,9 @@ int main()
                 window.close();
             scroll(window, view, event);
 
+
+            
+
         }
         //shape.setSize(Vector2f(window.getSize().x / 53, window.getSize().y/20));
         //shape.setPosition(Vector2f(0.f,(float) window.getSize().y - shape.getSize().y));
@@ -100,8 +131,17 @@ int main()
 
         window.clear();
         Music.Draw(window);
-
+        ToolBox.Display(window);
         Music.Whitenoteplacer(window, WhitePlacer, view);
+
+        ToolBox.update(window,view);
+        
+        cout << ToolBox.playCheck << endl;
+        if (ToolBox.playCheck) {
+            Music.Play(Notes);
+        }
+
+
         for (size_t i = 0; i < 52; i++)
         {
             window.draw(WhiteKeys[i]);

@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>c:\SFML-2.6.1\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,12 +136,18 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="music.cpp" />
+    <ClCompile Include="toolbox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="music.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="toolbox.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HellNotes.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,16 +8,16 @@ void music::Draw(RenderWindow& window)
 	}
 }
 
-void music::NoteMovement()
+
+
+void music::Play(Music Notes[])
 {
+
+
 	for (size_t i = 0; i < Wnotes.size(); i++)
 	{
 		Wnotes[i].visual.move(0, 1);
+		if (Wnotes[i].visual.getPosition().y  == windowS_Y * 0.90) Notes[Wnotes[i].keyNumber].play();
+		//if (Wnotes[i].visual.getPosition().y + Wnotes[i].visual.getSize().y == windowS_Y * 0.90) Notes[Wnotes[i].keyNumber].stop();
 	}
-}
-
-void music::Play()
-{
-	NoteMovement();
-
 }
