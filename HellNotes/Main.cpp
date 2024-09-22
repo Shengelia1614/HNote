@@ -7,7 +7,7 @@
 #include <SFML/audio.hpp>
 #include "music.h";
 #include "toolbox.h";
-
+#include <thread>
 #include <string>
 #include <iostream>
 #include <filesystem>
@@ -54,6 +54,9 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(1900+ToolBoxWidth, 1080), "SFML works!");
     sf::View view(sf::FloatRect(0, 0, windowS_X+ ToolBoxWidth, windowS_Y));
+
+    //std::thread PlayThread();
+
 
     //RenderWindow tool(sf::VideoMode(100, 1080), "SFML works!");
 
@@ -139,8 +142,10 @@ int main()
         Music.BlackNotePlacer(window, BlackPlacer, view, BlackKeys);
         ToolBox.update(window,view);
         
-        cout << ToolBox.playCheck << endl;
+        //cout << ToolBox.playCheck << endl;
         if (ToolBox.playCheck) {
+
+            //std::thread PlayThread();
             Music.Play(Notes);
         }
 

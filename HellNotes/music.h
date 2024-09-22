@@ -5,6 +5,10 @@
 #include <SFML/system.hpp>
 #include <SFML/window.hpp>
 #include <SFML/audio.hpp>
+#include <chrono>
+#include <thread>
+#include <algorithm>
+
 #include "music.h";
 
 using namespace std;
@@ -21,6 +25,8 @@ struct note {
     float startTime=0;
     RectangleShape visual;
 
+    //Music *KeySound;
+    float volume;
 
 };
 
@@ -32,6 +38,10 @@ class music
     bool ReleaseTrigger = 0;
     note tempNote;
     note tempNoteB;
+    Clock clock;
+    //float VolumeIND = 100;
+    bool soundtrigger = 0;
+    std::thread fadethread;
 public:
     
 
@@ -71,6 +81,9 @@ public:
                         tempNote.visual.setPosition(i * (windowS_X / 51.99999), MouseViewPosition.y);
                         tempNote.visual.setFillColor(Color::Green);
                         tempNote.keyNumber = i;
+                        tempNote.volume = 100;
+                        //tempNote.KeySound->openFromMemory(Notes[i]);
+                        
                         //cout << "created" << endl;
                     }
                     
@@ -156,7 +169,7 @@ public:
     
     void Play(Music Notes[]);
 
-
+    //void Fade(Music Notes[], int i);
 
 
 
