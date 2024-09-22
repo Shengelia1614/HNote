@@ -27,17 +27,18 @@ struct note {
 class music
 {
 	vector<note> Wnotes;
+    vector<note> Bnotes;
     int Counter = 0;
     bool ReleaseTrigger = 0;
     note tempNote;
-
+    note tempNoteB;
 public:
+    
 
 
 
 
-
-    void Whitenoteplacer(RenderWindow& window, RectangleShape shape, View view) {
+    void WhiteNotePlacer(RenderWindow& window, RectangleShape shape, View view) {
 
         for (size_t i = 0; i < 52; i++)
         {
@@ -89,8 +90,65 @@ public:
                 }
                 window.draw(shape);
             }
+            
         }
 
+    }
+    void BlackNotePlacer(RenderWindow& window, RectangleShape shape, View view, RectangleShape BlackKeys[]) {
+
+        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+        sf::Vector2f MouseViewPosition = window.mapPixelToCoords(mousePosition, view);
+        for (size_t i = 0; i < 36; i++) {
+            //if (MouseViewPosition.x > BlackKeys[i-1].getPosition().x + (windowS_X / 51.9999)/2 && MouseViewPosition.x < (BlackKeys[i].getPosition().x + BlackKeys[i].getSize().x)) {
+
+            
+            //if (i==0 && MouseViewPosition.x < (BlackKeys[i + 1].getPosition().x - (windowS_X / 51.9999) / 2) || i==35 && MouseViewPosition.x > BlackKeys[i - 1].getPosition().x + BlackKeys[i].getSize().x || MouseViewPosition.x > BlackKeys[i - 1].getPosition().x + BlackKeys[i].getSize().x/2 + (windowS_X / 51.9999) / 2 && MouseViewPosition.x < (BlackKeys[i+1].getPosition().x + BlackKeys[i].getSize().x / 2 - (windowS_X / 51.9999) / 2)) {
+            if (i == 0 && MouseViewPosition.x < (BlackKeys[i + 1].getPosition().x - (windowS_X / 51.9999) / 2) || i == 35 && MouseViewPosition.x > BlackKeys[i - 1].getPosition().x + BlackKeys[i].getSize().x || MouseViewPosition.x > BlackKeys[i].getPosition().x + BlackKeys[i].getSize().x / 2 - (windowS_X / 51.9999) / 2 && MouseViewPosition.x < (BlackKeys[i + 1].getPosition().x + BlackKeys[i].getSize().x / 2 - (windowS_X / 51.9999) / 2)) {
+            
+
+
+                shape.setPosition(Vector2f(BlackKeys[i].getPosition().x, MouseViewPosition.y));
+                //cout << Mouse::getPosition(window).x << endl;
+
+
+
+
+                if (Mouse::isButtonPressed(Mouse::Left)) {
+
+
+
+
+
+                    if (Counter == 0) {
+                        tempNoteB.visual.setSize((Vector2f(BlackKeys[i].getSize().x, 0)));
+                        tempNoteB.startPos = MouseViewPosition.y;
+                        tempNoteB.visual.setPosition(BlackKeys[i].getPosition().x, MouseViewPosition.y);
+                        tempNoteB.visual.setFillColor(Color::Blue);
+                        tempNoteB.keyNumber = i;
+                        //cout << "created" << endl;
+                    }
+
+                    tempNoteB.visual.setSize((Vector2f(BlackKeys[i].getSize().x, MouseViewPosition.y - tempNoteB.startPos)));
+                    window.draw(tempNoteB.visual);
+                    //cout << "draw" << endl;
+                    ReleaseTrigger = 1;
+                    +
+                        Counter++;
+                }
+                else
+                    if (ReleaseTrigger == 1) {
+                        //cout << "added" << endl;
+                        Bnotes.push_back(tempNoteB);
+                        ReleaseTrigger = 0;
+                        Counter = 0;
+
+                    }
+
+                window.draw(shape);
+            
+            }
+            //window.draw(tempNoteB.visual);
+        }
     }
 
 

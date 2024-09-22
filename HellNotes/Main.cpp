@@ -61,9 +61,10 @@ int main()
 
     //RectangleShape WhitePlacer(Vector2f(window.getSize().x / 51.99999, 100));
     RectangleShape WhitePlacer(Vector2f(windowS_X / 52, -10));
-    
+    RectangleShape BlackPlacer(Vector2f(windowS_X / 78, -10));
 
     WhitePlacer.setFillColor(sf::Color::Green);
+    BlackPlacer.setFillColor(sf::Color::Blue);
 
     RectangleShape WhiteKeys[52];
     RectangleShape BlackKeys[36];
@@ -107,7 +108,7 @@ int main()
         ind += 5;
     }
     
-
+    
 
     //window.getSize().y - shape.getSize().y
     while (window.isOpen())
@@ -132,8 +133,10 @@ int main()
         window.clear();
         Music.Draw(window);
         ToolBox.Display(window);
-        Music.Whitenoteplacer(window, WhitePlacer, view);
-
+        if(ToolBox.SwitchCheck==0)
+        Music.WhiteNotePlacer(window, WhitePlacer, view);
+        if (ToolBox.SwitchCheck == 1)
+        Music.BlackNotePlacer(window, BlackPlacer, view, BlackKeys);
         ToolBox.update(window,view);
         
         cout << ToolBox.playCheck << endl;

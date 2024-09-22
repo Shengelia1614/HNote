@@ -17,17 +17,20 @@ using namespace sf;
 class toolbox
 {
 	RectangleShape playbutton;
+	RectangleShape NoteSwitch;
 	bool ReleaseTrigger = 0;
 	
 public:
 	bool playCheck = 0;
-	
+	bool SwitchCheck = 0;
 	toolbox() {
 		playbutton.setSize(Vector2f(120,40));
-		
 		playbutton.setPosition(Vector2f(windowS_X+15, windowS_Y-60));
-		
 		playbutton.setFillColor(Color::Green);
+
+		NoteSwitch.setSize(Vector2f(120, 40));
+		NoteSwitch.setPosition(Vector2f(windowS_X + 15, windowS_Y - 110));
+		NoteSwitch.setFillColor(Color::Blue);
 		
 
 	}
@@ -35,7 +38,7 @@ public:
 	void Display(RenderWindow& window) {
 		
 		window.draw(playbutton);
-		
+		window.draw(NoteSwitch);
 	}
 
 	void update(RenderWindow& window, View view) {
@@ -52,6 +55,18 @@ public:
 			cout << "button clicked" << endl;
 			ReleaseTrigger = 0;
 		}
+
+		if (Mouse::isButtonPressed(Mouse::Left) && MouseViewPosition.x > NoteSwitch.getPosition().x && MouseViewPosition.x < (NoteSwitch.getPosition().x + 120) && MouseViewPosition.y>NoteSwitch.getPosition().y && MouseViewPosition.y < (NoteSwitch.getPosition().y + 40)) {
+			ReleaseTrigger = 1;
+		}
+		else
+			if (ReleaseTrigger == 1 && MouseViewPosition.x > NoteSwitch.getPosition().x && MouseViewPosition.x < (NoteSwitch.getPosition().x + 120) && MouseViewPosition.y>NoteSwitch.getPosition().y && MouseViewPosition.y < (NoteSwitch.getPosition().y + 40)) {
+				if (SwitchCheck == 0)SwitchCheck = 1;
+				else SwitchCheck = 0;
+				cout << "button clicked" << endl;
+				ReleaseTrigger = 0;
+			}
+
 	}
 
 };
