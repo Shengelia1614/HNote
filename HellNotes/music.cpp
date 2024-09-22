@@ -62,6 +62,7 @@ void music::Play(Music Notes[])
 
 			if (Wnotes[i].volume <= 0) {
 				Notes[Wnotes[i].keyNumber].stop();
+				Notes[Wnotes[i].keyNumber].setVolume(100);
 				Wnotes.erase(Wnotes.begin() + i);
 			}
 		}
