@@ -40,7 +40,7 @@ class music
     note tempNoteB;
     Clock clock;
     vector<Music> Sound_Streams;
-    Music S_Streams[2400];
+    Music S_Streams[256];
     //float VolumeIND = 100;
     bool soundtrigger = 0;
     std::thread fadethread;
