@@ -18,7 +18,9 @@ namespace fs = std::filesystem;
 #define windowS_X 1900
 #define windowS_Y 1080
 #define ToolBoxWidth 150
-Music Notes[88];
+//Music Notes[88];
+String Notes[88];
+//std::filesystem::path Notes[88];
 
 void scroll(RenderWindow & window, View& view, Event event) {
     
@@ -40,7 +42,9 @@ void keyloader(string path) {
     for (const auto& entry : fs::directory_iterator(path)) {
 
         
-        Notes[i].openFromFile(entry.path().string());
+        //Notes[i].openFromFile(entry.path().string());
+        //Notes[i] = entry.path();
+        Notes[i] = entry.path().string();
         cout << entry.path().string() << endl;
         //Notes[i].play();
         i++;

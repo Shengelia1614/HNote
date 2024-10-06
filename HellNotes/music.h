@@ -8,7 +8,7 @@
 #include <chrono>
 #include <thread>
 #include <algorithm>
-
+#include <filesystem>
 #include "music.h";
 
 using namespace std;
@@ -25,7 +25,7 @@ struct note {
     float startTime=0;
     RectangleShape visual;
 
-    //Music *KeySound;
+    //Music KeySound;
     float volume;
 
 };
@@ -39,6 +39,8 @@ class music
     note tempNote;
     note tempNoteB;
     Clock clock;
+    vector<Music> Sound_Streams;
+    Music S_Streams[2400];
     //float VolumeIND = 100;
     bool soundtrigger = 0;
     std::thread fadethread;
@@ -82,6 +84,7 @@ public:
                         tempNote.visual.setFillColor(Color::Green);
                         tempNote.keyNumber = i;
                         tempNote.volume = 100;
+
                         //tempNote.KeySound->openFromMemory(Notes[i]);
                         
                         //cout << "created" << endl;
@@ -97,6 +100,9 @@ public:
                 if (ReleaseTrigger == 1) {
                     //cout << "added" << endl;
                     Wnotes.push_back(tempNote);
+                    //Music temp;
+                    //S_Streams[i].openFromFile(Notes[Wnotes[i].keyNumber]);
+                    //Sound_Streams.push_back(temp);
                     ReleaseTrigger = 0;
                     Counter =0;
                     
@@ -167,7 +173,7 @@ public:
 
     void Draw(RenderWindow&);
     
-    void Play(Music Notes[]);
+    void Play(String Notes[]);
 
     //void Fade(Music Notes[], int i);
 

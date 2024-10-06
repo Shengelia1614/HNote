@@ -17,7 +17,7 @@ void music::Draw(RenderWindow& window)
 
 int temp;
 
-void music::Play(Music Notes[])
+void music::Play(String Notes[])
 {
 
 
@@ -28,9 +28,10 @@ void music::Play(Music Notes[])
 			Wnotes[i].visual.move(0, 1);
 
 			if (Wnotes[i].visual.getPosition().y == windowS_Y * 0.90) { 
-				
-				Notes[Wnotes[i].keyNumber].play(); 
-			
+				//Wnotes[i].KeySound.openFromFile(Notes[Wnotes[i].keyNumber]);
+				//Notes[Wnotes[i].keyNumber].play(); 
+				S_Streams[i].openFromFile(Notes[Wnotes[i].keyNumber]);
+				S_Streams[i].play();
 			}
 			
 			//k = 100;
@@ -45,6 +46,7 @@ void music::Play(Music Notes[])
 		
 
 		if (Wnotes[i].visual.getPosition().y + Wnotes[i].visual.getSize().y >= windowS_Y * 0.90) { 
+
 			chrono::milliseconds ms = duration_cast<chrono::milliseconds>(
 				system_clock::now().time_since_epoch()
 			);
@@ -53,17 +55,20 @@ void music::Play(Music Notes[])
 				temp = Wnotes[i].volume;
 				Wnotes[i].volume--;
 			}
-			Notes[Wnotes[i].keyNumber].setVolume(Wnotes[i].volume);
 
-			cout << temp << " - " << Notes[Wnotes[i].keyNumber].getVolume() << "   volume" << endl;
+
+			S_Streams[i].setVolume(Wnotes[i].volume);
+
+			cout << temp << " - " << S_Streams[i].getVolume() << "   volume" << endl;
 			//cout << Wnotes[i].volume << "   k" << endl;
 			//Notes[Wnotes[i].keyNumber].stop();
 
 
 			if (Wnotes[i].volume <= 0) {
-				Notes[Wnotes[i].keyNumber].stop();
-				Notes[Wnotes[i].keyNumber].setVolume(100);
+				S_Streams[i].stop();
+				S_Streams[i].setVolume(100);
 				Wnotes.erase(Wnotes.begin() + i);
+				//Sound_Streams.erase(Sound_Streams.begin() + i);
 			}
 		}
 
