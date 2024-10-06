@@ -140,10 +140,12 @@ int main()
         window.clear();
         Music.Draw(window);
         ToolBox.Display(window);
-        if(ToolBox.SwitchCheck==0)
-        Music.WhiteNotePlacer(window, WhitePlacer, view);
-        if (ToolBox.SwitchCheck == 1)
-        Music.BlackNotePlacer(window, BlackPlacer, view, BlackKeys);
+        if (!ToolBox.playCheck) {
+            if (ToolBox.SwitchCheck == 0)
+                Music.WhiteNotePlacer(window, WhitePlacer, view);
+            if (ToolBox.SwitchCheck == 1)
+                Music.BlackNotePlacer(window, BlackPlacer, view, BlackKeys);
+        }
         ToolBox.update(window,view);
         
         //cout << ToolBox.playCheck << endl;

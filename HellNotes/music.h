@@ -25,7 +25,7 @@ struct note {
     float startTime=0;
     RectangleShape visual;
 
-    //Music KeySound;
+    Music *KeySound;
     float volume;
 
 };
@@ -82,7 +82,7 @@ public:
                         tempNote.startPos=MouseViewPosition.y;
                         tempNote.visual.setPosition(i * (windowS_X / 51.99999), MouseViewPosition.y);
                         tempNote.visual.setFillColor(Color::Green);
-                        tempNote.keyNumber = i;
+                        tempNote.keyNumber = i+35;
                         tempNote.volume = 100;
 
                         //tempNote.KeySound->openFromMemory(Notes[i]);
@@ -115,14 +115,14 @@ public:
     }
     void BlackNotePlacer(RenderWindow& window, RectangleShape shape, View view, RectangleShape BlackKeys[]) {
 
-        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-        sf::Vector2f MouseViewPosition = window.mapPixelToCoords(mousePosition, view);
+        
         for (size_t i = 0; i < 36; i++) {
             //if (MouseViewPosition.x > BlackKeys[i-1].getPosition().x + (windowS_X / 51.9999)/2 && MouseViewPosition.x < (BlackKeys[i].getPosition().x + BlackKeys[i].getSize().x)) {
-
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            sf::Vector2f MouseViewPosition = window.mapPixelToCoords(mousePosition, view);
             
             //if (i==0 && MouseViewPosition.x < (BlackKeys[i + 1].getPosition().x - (windowS_X / 51.9999) / 2) || i==35 && MouseViewPosition.x > BlackKeys[i - 1].getPosition().x + BlackKeys[i].getSize().x || MouseViewPosition.x > BlackKeys[i - 1].getPosition().x + BlackKeys[i].getSize().x/2 + (windowS_X / 51.9999) / 2 && MouseViewPosition.x < (BlackKeys[i+1].getPosition().x + BlackKeys[i].getSize().x / 2 - (windowS_X / 51.9999) / 2)) {
-            if (i == 0 && MouseViewPosition.x < (BlackKeys[i + 1].getPosition().x - (windowS_X / 51.9999) / 2) || i == 35 && MouseViewPosition.x > BlackKeys[i - 1].getPosition().x + BlackKeys[i].getSize().x || MouseViewPosition.x > BlackKeys[i].getPosition().x + BlackKeys[i].getSize().x / 2 - (windowS_X / 51.9999) / 2 && MouseViewPosition.x < (BlackKeys[i + 1].getPosition().x + BlackKeys[i].getSize().x / 2 - (windowS_X / 51.9999) / 2)) {
+            if ((i == 0 && MouseViewPosition.x < (BlackKeys[i + 1].getPosition().x - (windowS_X / 51.9999) / 2) || i == 35 && MouseViewPosition.x > BlackKeys[i - 1].getPosition().x + BlackKeys[i].getSize().x || MouseViewPosition.x > BlackKeys[i].getPosition().x + BlackKeys[i].getSize().x / 2 - (windowS_X / 51.9999) / 2 && MouseViewPosition.x < (BlackKeys[i + 1].getPosition().x + BlackKeys[i].getSize().x / 2 - (windowS_X / 51.9999) / 2)) && (MouseViewPosition.x < windowS_X) ) {
             
 
 
@@ -144,6 +144,7 @@ public:
                         tempNoteB.visual.setPosition(BlackKeys[i].getPosition().x, MouseViewPosition.y);
                         tempNoteB.visual.setFillColor(Color::Blue);
                         tempNoteB.keyNumber = i;
+                        tempNoteB.volume = 100;
                         //cout << "created" << endl;
                     }
 
